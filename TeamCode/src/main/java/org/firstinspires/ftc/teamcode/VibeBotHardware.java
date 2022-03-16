@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -42,9 +44,11 @@ public class VibeBotHardware
 
 
     public void drop(){
-        while(servoTime.time() < 1){
+        servoTime.reset();
+        servoTime.startTime();
+        while(servoTime.time() < 2){
             mallet1.setPosition(1);
-
+            telemetry.addData("Servo Time", servoTime.time());
         }
         mallet1.setPosition(.6);
         servoTime.reset();

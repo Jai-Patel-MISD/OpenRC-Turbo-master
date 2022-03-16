@@ -70,6 +70,7 @@ public class FirstSongTeleOpModified extends OpMode {
         bot.drop();
         targetPos = newPos;
         noteTime.reset();
+        noteTime.startTime();
         while(time >= noteTime.time()){
             telemetry.addData("time", noteTime.time());
             telemetry.update();

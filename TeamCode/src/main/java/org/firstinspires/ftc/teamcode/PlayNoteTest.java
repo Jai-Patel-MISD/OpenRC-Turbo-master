@@ -10,13 +10,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class PlayNoteTest extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTime = new ElapsedTime();
-    public static double BPM = 60;
+    public static double BPM = 120;
     private final double wholeNote = BPM/15;
     private final double halfNote = BPM/30;
     private final double quarterNote = BPM/60;
     private final double eighthNote = BPM/120;
     private final double sixteenthNote = BPM/240;
-    private static final boolean isOn = true;
     double lastError = 0;
     double integral = 0;
     public static PIDCoefficients pidCoeffs = new PIDCoefficients(3.5,0.0000001,.00001);
@@ -65,10 +64,10 @@ public class PlayNoteTest extends OpMode {
         bot.cart1.setVelocity(pidGains.p + pidGains.i + pidGains.d);
         lastError = error;
 
-        telemetry.addData("servo position", bot.mallet1.getPosition());
-        telemetry.addData("cart1 pos", bot.cart1.getCurrentPosition());
-        telemetry.addData("cart1 target pos", targetPos);
-        telemetry.addData("error", targetPos - bot.cart1.getCurrentPosition());
+        telemetry.addData("servo position: ", bot.mallet1.getPosition());
+        telemetry.addData("cart1 pos: ", bot.cart1.getCurrentPosition());
+        telemetry.addData("cart1 target pos: ", targetPos);
+        telemetry.addData("error: ", targetPos - bot.cart1.getCurrentPosition());
         telemetry.update();
     }
     @Override
