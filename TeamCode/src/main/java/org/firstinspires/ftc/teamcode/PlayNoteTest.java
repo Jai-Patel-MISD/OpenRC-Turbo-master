@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class PlayNoteTest extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTime = new ElapsedTime();
-    public static double BPM = 120;
+    public static double BPM = 60;
     private final double wholeNote = BPM/15;
     private final double halfNote = BPM/30;
     private final double quarterNote = BPM/60;
