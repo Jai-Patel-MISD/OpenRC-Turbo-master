@@ -23,11 +23,39 @@ public class PlayNoteTest extends OpMode {
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
     private double targetTime = 0;
-    boolean cartMove = true;
+    private boolean songActive = true;
+
 
     @Override
     public void init(){
         bot.init(hardwareMap);
+        targetPos = bot.notes.e2;
+    }
+
+
+    public void initLoop(){
+        PIDTimer.reset();
+        double currentPos = bot.cart1.getCurrentPosition();
+        double error = targetPos - currentPos;
+        double deltaError = error - lastError;
+        double derivative = deltaError / PIDTimer.time();
+
+        integral += error * PIDTimer.time();
+
+        pidGains.p = error * pidCoeffs.p;
+        pidGains.i = integral * pidCoeffs.i;
+        pidGains.d = derivative * pidCoeffs.d;
+
+        bot.cart1.setVelocity(pidGains.p + pidGains.i + pidGains.d);
+
+        lastError = error;
+
+        telemetry.addData("servo position: ", bot.mallet1.getPosition());
+        telemetry.addData("cart1 pos: ", bot.cart1.getCurrentPosition());
+        telemetry.addData("cart1 target pos: ", targetPos);
+        telemetry.addData("error: ", targetPos - bot.cart1.getCurrentPosition());
+        telemetry.addData("Note Time", noteTime.time());
+        telemetry.update();
     }
     @Override
     public void start(){
@@ -82,14 +110,5 @@ public class PlayNoteTest extends OpMode {
     @Override
     public void stop(){
         bot.cart1.setVelocity(0);
-    }
-    public void playNoteModified(double newPos, double time){
-        bot.drop();
-        targetPos = newPos;
-        while(time >= noteTime.time()){
-            telemetry.addData("Note Time: ", noteTime.time());
-            telemetry.update();
-        }
-        noteTime.reset();
     }
 }
