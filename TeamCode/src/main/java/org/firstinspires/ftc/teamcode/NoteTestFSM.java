@@ -1,17 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.annotation.SuppressLint;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
-import java.util.Arrays;
-import java.util.List;
-
-@TeleOp(name = "Note Test")
+@TeleOp(name = "Note Test FSM")
 //@Disabled
 public class NoteTestFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
@@ -25,14 +19,15 @@ public class NoteTestFSM extends OpMode {
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
-    private final List<Double> notesOrder = Arrays.asList(notes.e2, notes.d2, notes.c2);
-    private final List<Double> noteTime = Arrays.asList(quarterNote, quarterNote, quarterNote);
+    private final Double[] notesOrder = {notes.e2, notes.d2, notes.c2};
+    private final Double[] noteTime = {quarterNote, quarterNote, quarterNote};
     private enum State {
         MOVE_TO_NOTE,
         STRIKE,
         STOP
     }
     private State currentState;
+    private int index = 0;
 
     @Override
     public void init(){
@@ -48,7 +43,7 @@ public class NoteTestFSM extends OpMode {
     }
     @Override
     public void start(){noteTimer.reset();}
-    @SuppressLint("DefaultLocale")
+
     @Override
     public void loop(){
         pid(targetPos);
@@ -56,24 +51,25 @@ public class NoteTestFSM extends OpMode {
 
         switch (currentState){
             case MOVE_TO_NOTE:
-                if(!notesOrder.isEmpty()){
-                    targetPos = notesOrder.get(0);
-                    notesOrder.remove(0);
+                if(notesOrder.length != 0){
+                    targetPos = notesOrder[index];
                     newState(State.STRIKE);
                 } else {
                     newState(State.STOP);
                 }
                 break;
             case STRIKE:
-                if(noteTime.get(0) <= noteTimer.time()){
-                    if (noteTime.get(0) + noteTime.get(0)/2 <= noteTimer.time()){
+                if(noteTime[index] <= noteTimer.time()){
+                    if (noteTime[index] + noteTime[index]/2 <= noteTimer.time()){
                         bot.mallet1.setPosition(.66);
-                        noteTime.remove(0);
                         noteTimer.reset();
+                        index += 1;
                         newState(State.MOVE_TO_NOTE);
                     } else {
                         bot.mallet1.setPosition(1);
                     }
+                } else {
+                    break;
                 }
                 break;
             case STOP:
@@ -83,7 +79,8 @@ public class NoteTestFSM extends OpMode {
     }
     @Override
     public void stop(){
-        bot.cart1.setVelocity(0);
+
+
     }
     public void newState(State newState){
         currentState = newState;
