@@ -12,15 +12,21 @@ public class NoteTestFSM extends OpMode {
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
     public static double BPM = 60;
-    private final double quarterNote = BPM/60;
+    private final double quarterNote = 60/BPM;
+    private final double halfNote = quarterNote * 2;
+    private final double wholeNote = quarterNote * 4;
     double lastError = 0;
     double integral = 0;
     public static PIDCoefficients pidCoeffs = new PIDCoefficients(3.5,0.0000005,.00001);
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
-    private final Double[] notesOrder = {notes.e2, notes.d2, notes.c2};
-    private final Double[] noteTime = {quarterNote, quarterNote, quarterNote};
+    private final Double[] notesOrder = {notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2, notes.d2,
+            notes.e2, notes.g2, notes.g2, notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2,
+            notes.e2, notes.d2, notes.c2};
+    private final Double[] noteTime = {quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote,
+            halfNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote,
+            quarterNote, quarterNote, quarterNote, quarterNote, wholeNote};
     private enum State {
         MOVE_TO_NOTE,
         STRIKE,
@@ -51,7 +57,7 @@ public class NoteTestFSM extends OpMode {
 
         switch (currentState){
             case MOVE_TO_NOTE:
-                if(notesOrder.length != 0){
+                if(notesOrder.length > index + 1){
                     targetPos = notesOrder[index];
                     newState(State.STRIKE);
                 } else {
@@ -60,7 +66,7 @@ public class NoteTestFSM extends OpMode {
                 break;
             case STRIKE:
                 if(noteTime[index] <= noteTimer.time()){
-                    if (noteTime[index] + noteTime[index]/2 <= noteTimer.time()){
+                    if (noteTime[index] + .5 <= noteTimer.time()){
                         bot.mallet1.setPosition(.66);
                         noteTimer.reset();
                         index += 1;
