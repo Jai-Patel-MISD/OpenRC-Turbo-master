@@ -1,12 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.oldfiles;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.VibeBotHardware;
+
 @TeleOp(name = "Mary TeleOp Modified")
-//@Disabled
+@Disabled
 public class FirstSongTeleOpModified extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTime = new ElapsedTime();
@@ -30,14 +33,14 @@ public class FirstSongTeleOpModified extends OpMode {
     }
     @Override
     public void start(){
-        playNoteModified(bot.notes.e2, quarterNote);
+        /*playNoteModified(bot.notes.e2, quarterNote);
         playNoteModified(bot.notes.d2, quarterNote);
         playNoteModified(bot.notes.c2, quarterNote);
         playNoteModified(bot.notes.d2, quarterNote);
         playNoteModified(bot.notes.e2, quarterNote);
         playNoteModified(bot.notes.e2, quarterNote);
         playNoteModified(bot.notes.e2, halfNote);
-        playNoteModified(bot.notes.d2, quarterNote);
+        playNoteModified(bot.notes.d2, quarterNote);*/
     }
     @Override
     public void loop(){

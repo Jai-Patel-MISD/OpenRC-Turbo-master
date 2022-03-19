@@ -1,12 +1,15 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.oldfiles;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.VibeBotHardware;
+
 @TeleOp(name = "Note Test")
-//@Disabled
+@Disabled
 public class PlayNoteTest extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTime = new ElapsedTime();
@@ -29,7 +32,7 @@ public class PlayNoteTest extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.e2;
+        ///targetPos = bot.notes.e2;
     }
 
 
@@ -60,7 +63,7 @@ public class PlayNoteTest extends OpMode {
     @Override
     public void start(){
 
-        targetPos = bot.notes.e2;
+        /*targetPos = bot.notes.e2;
         noteTime.startTime();
         targetTime = quarterNote;
         noteTime.startTime();
@@ -68,7 +71,7 @@ public class PlayNoteTest extends OpMode {
         targetTime = quarterNote;
         noteTime.startTime();
         targetPos = bot.notes.c2;
-        targetTime = quarterNote;
+        targetTime = quarterNote;*/
     }
     @Override
     public void loop(){
