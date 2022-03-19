@@ -17,7 +17,7 @@ public class NoteTestFSM extends OpMode {
     private final double wholeNote = quarterNote * 4;
     double lastError = 0;
     double integral = 0;
-    public static PIDCoefficients pidCoeffs = new PIDCoefficients(3.5,0.0000005,.00001);
+    public static PIDCoefficients pidCoeffs = new PIDCoefficients(10,0.0000005,.00001);
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
