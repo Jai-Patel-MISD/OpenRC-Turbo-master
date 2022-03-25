@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Mary Had a Little Lamb")
+@TeleOp(name = "Hot Cross Buns")
 //@Disabled
-public class MaryHadLambFSM extends OpMode {
+public class HotCrossBunsFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
@@ -15,18 +15,33 @@ public class MaryHadLambFSM extends OpMode {
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
+    private final double eightNote = quarterNote/2;
     double lastError = 0;
     double integral = 0;
     public static PIDCoefficients pidCoeffs = new PIDCoefficients(7,0.0000005,.00001);
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
-    private final Double[] notesOrder = {notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2, notes.d2,
-            notes.e2, notes.g2, notes.g2, notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2,
-            notes.e2, notes.d2, notes.c2};
-    private final Double[] noteTime = {quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote,
-            halfNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote,
-            quarterNote, quarterNote, quarterNote, quarterNote, wholeNote};
+    private final Double[] notesOrder = {
+            notes.d3, notes.d2, notes.g2, //1
+            notes.d3, notes.d2, notes.g2, //2
+            notes.d3, notes.c3, notes.b3, notes.a3, notes.g2, notes.a3, notes.b3, notes.c3,//3
+            notes.d3, notes.d2, notes.g2, notes.g2, notes.g2,//4
+            notes.d3, notes.d3, notes.d3, notes.d3, notes.c3, notes.c3,//5
+            notes.b3, notes.b3, notes.b3, notes.b3, notes.a3,//6
+            notes.d3, notes.c3, notes.b3, notes.a3, notes.g2, notes.a3, notes.b3, notes.c3,//7
+            notes.d3, notes.d2, notes.g2//8
+    };
+    private final Double[] noteTime = {
+            quarterNote, quarterNote, halfNote,//1
+            quarterNote, quarterNote, halfNote,//2
+            eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//3
+            quarterNote, quarterNote, eightNote, eightNote,//4
+            eightNote, eightNote, eightNote, eightNote, quarterNote, quarterNote,//5
+            eightNote, eightNote, eightNote, eightNote, halfNote,//6
+            eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//7
+            quarterNote, quarterNote, halfNote,//8
+    };
     private enum State {
         MOVE_TO_NOTE,
         STRIKE,

@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -37,9 +38,10 @@ public class VibeBotHardware
         // Define and initialize ALL installed servos.
         mallet1  = hwMap.get(Servo.class, "mallet1");
         cart1 = hwMap.get(DcMotorEx.class, "cart1");
+        cart1.setDirection(DcMotorSimple.Direction.REVERSE);
         cart1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cart1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mallet1.setPosition(.66);
+        mallet1.setPosition(.45);
     }
 
 
@@ -49,7 +51,7 @@ public class VibeBotHardware
         while(servoTime.time() < 1){
             mallet1.setPosition(1);
         }
-        mallet1.setPosition(.6);
+        mallet1.setPosition(.45);
         servoTime.reset();
     }
 }

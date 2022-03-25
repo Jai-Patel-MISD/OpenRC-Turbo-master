@@ -14,9 +14,10 @@ public class LittleStarFSM extends OpMode {
     public static double BPM = 60;
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
+    private final double wholeNote = quarterNote * 4;
     double lastError = 0;
     double integral = 0;
-    public static PIDCoefficients pidCoeffs = new PIDCoefficients(10,0.0000005,.00001);
+    public static PIDCoefficients pidCoeffs = new PIDCoefficients(7,0.0000005,.00001);
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
@@ -61,7 +62,7 @@ public class LittleStarFSM extends OpMode {
 
         switch (currentState){
             case MOVE_TO_NOTE:
-                if(notesOrder.length > index + 1){
+                if(notesOrder.length >= index + 1){
                     targetPos = notesOrder[index];
                     newState(State.STRIKE);
                 } else {
@@ -70,13 +71,13 @@ public class LittleStarFSM extends OpMode {
                 break;
             case STRIKE:
                 if(noteTime[index] <= noteTimer.time()){
-                    if (noteTime[index] + .5 <= noteTimer.time()){
-                        bot.mallet1.setPosition(.66);
-                        noteTimer.reset();
+                    if (noteTime[index] + .2 <= noteTimer.time()){
+                        bot.mallet1.setPosition(.45);
                         index += 1;
                         newState(State.MOVE_TO_NOTE);
+                        noteTimer.reset();
                     } else {
-                        bot.mallet1.setPosition(1);
+                        bot.mallet1.setPosition(.66);
                     }
                 } else {
                     break;
