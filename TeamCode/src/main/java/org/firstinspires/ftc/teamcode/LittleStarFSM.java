@@ -43,8 +43,8 @@ public class LittleStarFSM extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.e2;
-        newState(State.MOVE_TO_NOTE);
+        targetPos = bot.notes.c2;
+        newState(State.STRIKE);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class LittleStarFSM extends OpMode {
                         newState(State.MOVE_TO_NOTE);
                         noteTimer.reset();
                     } else {
-                        bot.mallet1.setPosition(.66);
+                        bot.mallet1.setPosition(notes.lower);
                     }
                 } else {
                     break;

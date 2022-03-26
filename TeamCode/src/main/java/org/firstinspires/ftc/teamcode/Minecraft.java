@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Hot Cross Buns")
+@TeleOp(name = "Minecraft")
 //@Disabled
-public class HotCrossBunsFSM extends OpMode {
+public class Minecraft extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
@@ -15,7 +15,6 @@ public class HotCrossBunsFSM extends OpMode {
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
-    private final double eightNote = quarterNote/2;
     double lastError = 0;
     double integral = 0;
     public static PIDCoefficients pidCoeffs = new PIDCoefficients(7,0.0000005,.00001);
@@ -23,38 +22,31 @@ public class HotCrossBunsFSM extends OpMode {
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
     private final Double[] notesOrder = {
-            notes.d3, notes.d2, notes.g2, //1
-            notes.d3, notes.d2, notes.g2, //2
-            notes.d3, notes.c3, notes.b3, notes.a3, notes.g2, notes.a3, notes.b3, notes.c3,//3
-            notes.d3, notes.d2, notes.g2, notes.g2, notes.g2,//4
-            notes.d3, notes.d3, notes.d3, notes.d3, notes.c3, notes.c3,//5
-            notes.b3, notes.b3, notes.b3, notes.b3, notes.a3,//6
-            notes.d3, notes.c3, notes.b3, notes.a3, notes.g2, notes.a3, notes.b3, notes.c3,//7
-            notes.d3, notes.d2, notes.g2//8
+            notes.b3, notes.a3, notes.e2, //1 and last notes tied
+            notes.g2, //2
+            notes.b3, notes.a3, notes.e2,// 3 last note tied
+            notes.d2//4
     };
     private final Double[] noteTime = {
-            quarterNote, quarterNote,quarterNote, halfNote,//1
-            quarterNote, quarterNote, halfNote,//2
-            eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//3
-            quarterNote, quarterNote, eightNote, eightNote,//4
-            eightNote, eightNote, eightNote, eightNote, quarterNote, quarterNote,//5
-            eightNote, eightNote, eightNote, eightNote, halfNote,//6
-            eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//7
-            quarterNote, quarterNote, halfNote,//8
+            halfNote, quarterNote, halfNote,//1 with tie
+            halfNote+quarterNote,//2
+            halfNote, quarterNote, halfNote,//3 tied
+            halfNote + quarterNote//4
     };
+    boolean firstIf = true;
     private enum State {
         MOVE_TO_NOTE,
         STRIKE,
         STOP
     }
     private State currentState;
-    private int index = 0;
+    private int index = 1;
 
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.d3;
-        newState(State.STRIKE);
+        targetPos = bot.notes.b3;
+        newState(State.MOVE_TO_NOTE);
     }
 
     @Override
@@ -69,33 +61,41 @@ public class HotCrossBunsFSM extends OpMode {
     public void loop(){
         pid(targetPos);
         telemetryBlock();
-
-        switch (currentState){
-            case MOVE_TO_NOTE:
-                if(notesOrder.length >= index + 1){
-                    targetPos = notesOrder[index];
-                    newState(State.STRIKE);
-                } else {
-                    newState(State.STOP);
-                }
-                break;
-            case STRIKE:
-                if(noteTime[index] <= noteTimer.time()){
-                    if (noteTime[index] + .2 <= noteTimer.time()){
-                        bot.mallet1.setPosition(.45);
-                        index += 1;
-                        newState(State.MOVE_TO_NOTE);
-                        noteTimer.reset();
+        if (firstIf){
+            bot.mallet1.setPosition(.66);
+            if(noteTimer.time()>.2){
+                bot.mallet1.setPosition(.45);
+                noteTimer.reset();
+                firstIf = false;
+            }
+        } else {
+            switch (currentState) {
+                case MOVE_TO_NOTE:
+                    if (notesOrder.length >= index + 1) {
+                        targetPos = notesOrder[index];
+                        newState(State.STRIKE);
                     } else {
-                        bot.mallet1.setPosition(notes.lower);
+                        newState(State.STOP);
                     }
-                } else {
                     break;
-                }
-                break;
-            case STOP:
-                bot.cart1.setVelocity(0);
-                break;
+                case STRIKE:
+                    if (noteTime[index] <= noteTimer.time()) {
+                        if (noteTime[index] + .2 <= noteTimer.time()) {
+                            bot.mallet1.setPosition(.45);
+                            index += 1;
+                            newState(State.MOVE_TO_NOTE);
+                            noteTimer.reset();
+                        } else {
+                            bot.mallet1.setPosition(notes.lower);
+                        }
+                    } else {
+                        break;
+                    }
+                    break;
+                case STOP:
+                    bot.cart1.setVelocity(0);
+                    break;
+            }
         }
     }
     @Override

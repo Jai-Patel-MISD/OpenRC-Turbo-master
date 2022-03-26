@@ -11,7 +11,7 @@ public class MaryHadLambFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
-    public static double BPM = 60;
+    public static double BPM = 120;
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
@@ -21,12 +21,26 @@ public class MaryHadLambFSM extends OpMode {
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
-    private final Double[] notesOrder = {notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2, notes.d2,
-            notes.e2, notes.g2, notes.g2, notes.e2, notes.d2, notes.c2, notes.d2, notes.e2, notes.e2, notes.e2, notes.e2, notes.d2, notes.d2,
-            notes.e2, notes.d2, notes.c2};
-    private final Double[] noteTime = {quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote,
-            halfNote, quarterNote, quarterNote, halfNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote, quarterNote,
-            quarterNote, quarterNote, quarterNote, quarterNote, wholeNote};
+    private final Double[] notesOrder = {
+            notes.e2, notes.d2, notes.c2, notes.d2,
+            notes.e2, notes.e2, notes.e2,
+            notes.d2, notes.d2, notes.d2,
+            notes.e2, notes.g2, notes.g2,
+            notes.e2, notes.d2, notes.c2, notes.d2,
+            notes.e2, notes.e2, notes.e2, notes.e2,
+            notes.d2, notes.d2, notes.e2, notes.d2,
+            notes.c2
+    };
+    private final Double[] noteTime = {
+            quarterNote, quarterNote, quarterNote,
+            quarterNote, quarterNote, quarterNote, quarterNote,
+            halfNote, quarterNote, quarterNote,
+            halfNote, quarterNote, quarterNote,
+            halfNote, quarterNote, quarterNote, quarterNote,
+            quarterNote, quarterNote, quarterNote, quarterNote,
+            quarterNote, quarterNote, quarterNote, quarterNote,
+            quarterNote, wholeNote
+    };
     private enum State {
         MOVE_TO_NOTE,
         STRIKE,
@@ -72,7 +86,7 @@ public class MaryHadLambFSM extends OpMode {
                         newState(State.MOVE_TO_NOTE);
                         noteTimer.reset();
                     } else {
-                        bot.mallet1.setPosition(.66);
+                        bot.mallet1.setPosition(notes.lower);
                     }
                 } else {
                     break;
