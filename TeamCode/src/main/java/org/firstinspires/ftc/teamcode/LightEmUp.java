@@ -34,7 +34,7 @@ public class LightEmUp extends OpMode {
 
     };
     private final Double[] noteTime = {
-            quarterNote, eighthnote, eighthnote, quarterNote, quarterNote,//1
+            .0,quarterNote, eighthnote, eighthnote, quarterNote, quarterNote,//1
             eighthnote, eighthnote, quarterNote, quarterNote*.75, quarterNote*.25, eighthnote, eighthnote,//2
             quarterNote, eighthnote, eighthnote, quarterNote, quarterNote + wholeNote,//3 & 4
             halfNote*.75, halfNote*.75, eighthnote, eighthnote,//5

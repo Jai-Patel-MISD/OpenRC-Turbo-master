@@ -26,7 +26,7 @@ public class LittleStarFSM extends OpMode {
             notes.f2,notes.f2,notes.e2,notes.e2,notes.d2,notes.g2,notes.g2,notes.f2,notes.f2,notes.e2,
             notes.e2,notes.d2,notes.c2,notes.c2,notes.g2,notes.g2,notes.a2,notes.a2,notes.g2,notes.f2,
             notes.f2,notes.e2,notes.e2,notes.d2,notes.d2,notes.c2,}; //11
-    private final Double[] noteTime = {quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,
+    private final Double[] noteTime = {.0,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,
             quarterNote,halfNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,
             halfNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,halfNote,
             quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,halfNote,quarterNote,
