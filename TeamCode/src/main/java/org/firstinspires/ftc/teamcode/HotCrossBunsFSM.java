@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Hot Cross Buns")
+@TeleOp(name = "Weird Hot Cross Buns")
 //@Disabled
 public class HotCrossBunsFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
@@ -33,7 +33,7 @@ public class HotCrossBunsFSM extends OpMode {
             notes.d3, notes.d2, notes.g2//8
     };
     private final Double[] noteTime = {
-            0.0,quarterNote, quarterNote,quarterNote, halfNote,//1
+            0.0, quarterNote,quarterNote, halfNote,//1
             quarterNote, quarterNote, halfNote,//2
             eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//3
             quarterNote, quarterNote, eightNote, eightNote,//4

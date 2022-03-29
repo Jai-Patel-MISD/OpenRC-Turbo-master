@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Light Em Up")
-@Disabled
-public class LightEmUp extends OpMode {
+@TeleOp(name = "Normal Hot Cross Buns")
+//@Disabled
+public class HotCrossBunsNormal extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
@@ -16,7 +15,7 @@ public class LightEmUp extends OpMode {
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
-    private final double eighthNote = quarterNote/2;
+    private final double eightNote = quarterNote/2;
     double lastError = 0;
     double integral = 0;
     public static PIDCoefficients pidCoeffs = new PIDCoefficients(7,0.0000005,.00001);
@@ -24,23 +23,17 @@ public class LightEmUp extends OpMode {
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
     private final Double[] notesOrder = {
-            notes.a3, notes.a3, notes.a3, notes.a3, notes.a3,//1
-            notes.a3, notes.a3, notes.a3, notes.a3, notes.a3, notes.g1, notes.g1,//2
-            notes.a3, notes.a3, notes.a3, notes.a3, notes.a3,//3
-            //4 bunch a rest
-            notes.d2, notes.a3, notes.g2, notes.f2,//5
-            notes.g2, notes.a3, notes.g2, notes.f2,//6
-            notes.g2, notes.a3, notes.f2, notes.e2, notes.d2,//7
-            //ties last note treat as rest 8
-
+            notes.e2, notes.d2, notes.c2, //1
+            notes.e2, notes.d2, notes.c2, //2
+            notes.c2, notes.c2, notes.c2,notes.c2, notes.d2, notes.d2, notes.d2, notes.d2,//3
+            notes.e2, notes.d2, notes.c2, //4
     };
     private final Double[] noteTime = {
-            .0,quarterNote, eighthNote, eighthNote, quarterNote, quarterNote,//1
-            eighthNote, eighthNote, quarterNote, quarterNote*.75, quarterNote*.25, eighthNote, eighthNote,//2
-            quarterNote, eighthNote, eighthNote, quarterNote, quarterNote + wholeNote,//3 & 4
-            halfNote*.75, halfNote*.75, eighthNote, eighthNote,//5
-            halfNote*.75, halfNote*.75, eighthNote, eighthNote,//6
-            halfNote*.75, quarterNote, eighthNote, eighthNote, eighthNote + wholeNote,//7
+            0.0, quarterNote,quarterNote, halfNote,//1
+            quarterNote, quarterNote, halfNote,//2
+            eightNote, eightNote, eightNote, eightNote, eightNote, eightNote,eightNote, eightNote,//3
+            quarterNote, quarterNote, halfNote//4
+
     };
     private enum State {
         MOVE_TO_NOTE,
@@ -53,8 +46,8 @@ public class LightEmUp extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.a3;
-        newState(State.MOVE_TO_NOTE);
+        targetPos = bot.notes.d3;
+        newState(State.STRIKE);
     }
 
     @Override

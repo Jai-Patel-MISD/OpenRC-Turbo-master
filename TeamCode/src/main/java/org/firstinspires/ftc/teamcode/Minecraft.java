@@ -114,7 +114,7 @@ public class Minecraft extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.b3;
+        targetPos = bot.notes.g2;
         newState(State.MOVE_TO_NOTE);
     }
 

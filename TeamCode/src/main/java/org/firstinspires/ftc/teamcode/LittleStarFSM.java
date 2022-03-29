@@ -21,10 +21,10 @@ public class LittleStarFSM extends OpMode {
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
-    private final Double[] notesOrder = {notes.c2,notes.c2,notes.g2,notes.g2,notes.a2,notes.a2,
+    private final Double[] notesOrder = {notes.c2,notes.c2,notes.g2,notes.g2,notes.a3,notes.a3,
             notes.g2,notes.f2,notes.f2,notes.e2,notes.e2,notes.d2,notes.d2,notes.c2,notes.g2,notes.g2,
             notes.f2,notes.f2,notes.e2,notes.e2,notes.d2,notes.g2,notes.g2,notes.f2,notes.f2,notes.e2,
-            notes.e2,notes.d2,notes.c2,notes.c2,notes.g2,notes.g2,notes.a2,notes.a2,notes.g2,notes.f2,
+            notes.e2,notes.d2,notes.c2,notes.c2,notes.g2,notes.g2,notes.a3,notes.a3,notes.g2,notes.f2,
             notes.f2,notes.e2,notes.e2,notes.d2,notes.d2,notes.c2,}; //11
     private final Double[] noteTime = {.0,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,
             quarterNote,halfNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,quarterNote,
