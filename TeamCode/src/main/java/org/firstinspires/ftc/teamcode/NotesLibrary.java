@@ -21,5 +21,5 @@ public class NotesLibrary{
     double a4 = 271;
     double b4 = 161;
     double c4 = 27;
-    double lower = .66;
+    double lower = .69;
 }

@@ -15,7 +15,7 @@ public class vibeBotTele extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested()){
-            bot.mallet1.setPosition(clip(.60-gamepad1.right_stick_y,.6,1));
+            bot.mallet1.setPosition(clip(.45-.25*gamepad1.right_stick_y,.48,.7));
             bot.cart1.setVelocity(1000 * (gamepad1.left_trigger- gamepad1.right_trigger));
             telemetry.addData("pos", bot.cart1.getCurrentPosition());
             telemetry.addData("servo pos", bot.mallet1.getPosition());
