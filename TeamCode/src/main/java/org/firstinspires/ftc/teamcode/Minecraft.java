@@ -8,13 +8,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.NotesLibrary;
 import org.firstinspires.ftc.teamcode.VibeBotHardware;
 
-@TeleOp(name = "Minecraft")
+@TeleOp(name = "Minecraft - NO")
 //@Disabled
 public class Minecraft extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
-    public static double BPM = 80;
+    public static double BPM = 60;
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
@@ -66,7 +66,7 @@ public class Minecraft extends OpMode {
 
     };
     private final Double[] noteTime = {
-        .2, quarterNote, quarterNote, quarterNote,//1
+        .0, quarterNote, quarterNote, quarterNote,//1
                 quarterNote, quarterNote, quarterNote, quarterNote,//2
                 quarterNote, quarterNote, quarterNote, quarterNote,//3
                 wholeNote,//4
@@ -114,7 +114,7 @@ public class Minecraft extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.g2;
+        targetPos = notesOrder[0];
         newState(State.MOVE_TO_NOTE);
     }
 
@@ -143,7 +143,7 @@ public class Minecraft extends OpMode {
             case STRIKE:
                 if(noteTime[index] <= noteTimer.time()){
                     if (noteTime[index] + .2 <= noteTimer.time()){
-                        bot.mallet1.setPosition(.45);
+                        bot.mallet1.setPosition(notes.higher);
                         index += 1;
                         newState(State.MOVE_TO_NOTE);
                         noteTimer.reset();

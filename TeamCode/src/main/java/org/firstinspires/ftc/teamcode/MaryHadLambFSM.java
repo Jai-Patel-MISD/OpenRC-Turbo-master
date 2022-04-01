@@ -81,7 +81,7 @@ public class MaryHadLambFSM extends OpMode {
             case STRIKE:
                 if(noteTime[index] <= noteTimer.time()){
                     if (noteTime[index] + .2 <= noteTimer.time()){
-                        bot.mallet1.setPosition(.45);
+                        bot.mallet1.setPosition(notes.higher);
                         index += 1;
                         newState(State.MOVE_TO_NOTE);
                         noteTimer.reset();

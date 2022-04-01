@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.PIDCoefficients;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = "Weird Hot Cross Buns")
+@TeleOp(name = "Weird Hot Cross Buns - NO")
 //@Disabled
 public class HotCrossBunsFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
@@ -82,7 +82,7 @@ public class HotCrossBunsFSM extends OpMode {
             case STRIKE:
                 if(noteTime[index] <= noteTimer.time()){
                     if (noteTime[index] + .2 <= noteTimer.time()){
-                        bot.mallet1.setPosition(.45);
+                        bot.mallet1.setPosition(notes.higher);
                         index += 1;
                         newState(State.MOVE_TO_NOTE);
                         noteTimer.reset();

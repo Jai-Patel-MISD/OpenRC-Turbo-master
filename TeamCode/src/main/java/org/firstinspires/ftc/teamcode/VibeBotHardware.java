@@ -41,7 +41,7 @@ public class VibeBotHardware
         cart1.setDirection(DcMotorSimple.Direction.REVERSE);
         cart1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         cart1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        mallet1.setPosition(.45);
+        mallet1.setPosition(notes.higher);
     }
 
 

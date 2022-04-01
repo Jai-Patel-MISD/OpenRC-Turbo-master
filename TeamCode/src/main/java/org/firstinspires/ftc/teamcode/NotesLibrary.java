@@ -10,7 +10,7 @@ public class NotesLibrary{
     double d2 = 1601;
     double e2 = 1481;
     double f2 = 1350;
-    double g2 = 1234;
+    double g2 = 1250;
     double a3 = 1122;
     double b3 = 1005;
     double c3 = 883;
@@ -21,5 +21,6 @@ public class NotesLibrary{
     double a4 = 271;
     double b4 = 161;
     double c4 = 27;
-    double lower = .69;
+    double lower = .66;
+    double higher = .57;
 }
