@@ -53,7 +53,7 @@ public class HotCrossBunsFSM extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.d3;
+        targetPos = notesOrder[0];
         newState(State.STRIKE);
     }
 

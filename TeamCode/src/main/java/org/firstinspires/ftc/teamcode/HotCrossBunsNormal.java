@@ -46,7 +46,7 @@ public class HotCrossBunsNormal extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.e2;
+        targetPos = notesOrder[0];
         newState(State.STRIKE);
     }
 

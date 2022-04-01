@@ -43,7 +43,7 @@ public class LittleStarFSM extends OpMode {
     @Override
     public void init(){
         bot.init(hardwareMap);
-        targetPos = bot.notes.c2;
+        targetPos = notesOrder[0];
         newState(State.STRIKE);
     }
 
