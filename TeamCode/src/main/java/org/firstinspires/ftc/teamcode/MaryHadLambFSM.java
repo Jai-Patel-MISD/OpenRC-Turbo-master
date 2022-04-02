@@ -11,13 +11,13 @@ public class MaryHadLambFSM extends OpMode {
     VibeBotHardware bot = new VibeBotHardware();
     private final ElapsedTime noteTimer = new ElapsedTime();
     NotesLibrary notes = new NotesLibrary();
-    public static double BPM = 120;
+    public static double BPM = 180;
     private final double quarterNote = 60/BPM;
     private final double halfNote = quarterNote * 2;
     private final double wholeNote = quarterNote * 4;
     double lastError = 0;
     double integral = 0;
-    public static PIDCoefficients pidCoeffs = new PIDCoefficients(7,0.0000005,.00001);
+    public static PIDCoefficients pidCoeffs = new PIDCoefficients(10,0.0000005,.00001);
     public PIDCoefficients pidGains = new PIDCoefficients(0,0,0);
     public double targetPos;
     private final ElapsedTime PIDTimer  = new ElapsedTime();
