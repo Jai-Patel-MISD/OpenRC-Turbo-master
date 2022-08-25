@@ -24,5 +24,7 @@ public class YeffreyAustin extends OpMode {
         Name.setTargetPosition(1000);
         Name.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Name.setVelocity(300);
+        telemetry.addData(">", "UR mom");
+        telemetry.update();
     }
 }
