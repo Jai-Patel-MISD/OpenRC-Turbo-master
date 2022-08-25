@@ -14,7 +14,7 @@ public class MotorPracticeJai extends OpMode {
     @Override
     public void init() {
         int i;
-        for (i = 0; i < 3; i++ ){
+        for (i = 0; i < 4; i++ ){
             motors[i] = hardwareMap.get(DcMotorEx.class, motorsName[i]);
             motors[i].setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
         }
